@@ -1,0 +1,60 @@
+@startuml
+
+class Element {
+    String mode
+    private int coodX;
+    private int coodY;
+
+    public list<int> getPasspoint();
+
+}
+
+Element <|-- Phontome
+class Phontome {
+    private double gravite
+
+}
+Element <|-- Obstacle
+class Obstacle {
+
+}
+Obstacle <|-- Simple
+class Simple {
+
+}
+Obstacle <|-- Sinus
+class Sinus {
+
+}
+
+Obstacle <|-- Quantic
+class Quantic {
+
+
+}
+
+class Resources{
+    public string getImage(String name)
+}
+
+class jeu {
+    private string mode //debug or normal
+    private List<obstacle> obs_list
+    private int score
+    private void setScore()
+
+    public static void main()
+
+    private boolean isCollision()
+    private void addObstacles()//3 seconde timer
+    private boolean obstaclePassed(Phontome pt)
+    private void start()
+    private void updateEnvionment()
+    private void initialiseEnv()
+
+    private event updateView()
+    private collision(phontome pt, list<obstacles> ob_list)
+}
+
+
+@enduml
