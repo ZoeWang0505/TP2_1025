@@ -6,8 +6,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -25,7 +27,7 @@ public class Vue extends Application {
     private int HEIGHT = 440;
     @Override
     public void start(Stage primaryStage) throws Exception{
-        VBox root = new VBox();
+        VBox root = new VBox(8);
         Scene scene = new Scene(root, WIDTH, HEIGHT);
 
         Canvas canvas = new Canvas(WIDTH, HEIGHT-40);
@@ -42,16 +44,25 @@ public class Vue extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Flappy Ghost");
+        primaryStage.getIcons().add(Resources.getGhost());
         primaryStage.show();
 
 
 
         // Création du contrôleur
         controleur = new Controleur(this);
+
+        // -----------temporaire ---------------
+        GraphicsContext context = canvas.getGraphicsContext2D();
+        context.drawImage(Resources.getBg(), 0, 0, 640, 400);
+
+
+        /*
+        public void miseAJour() {
+            context.drawImage(Resources.getBg(), 0, 0, 640, 400);
+        }*/
+
     }
 
-    public void miseAJour(String text) {
-        //output.setText(text);
-    }
 }
 
