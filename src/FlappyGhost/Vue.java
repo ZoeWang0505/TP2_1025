@@ -29,7 +29,7 @@ public class Vue extends Application {
         Scene scene = new Scene(root, WIDTH, HEIGHT);
 
         Canvas canvas = new Canvas(WIDTH, HEIGHT-40);
-        HBox menuBoutons = new HBox();
+        HBox menuBoutons = new HBox(10);
         root.getChildren().add(canvas);
         root.getChildren().add(menuBoutons);
         Button pause = new Button("Pause");
