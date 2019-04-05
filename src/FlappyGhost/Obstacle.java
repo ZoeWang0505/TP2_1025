@@ -18,6 +18,12 @@ public class Obstacle extends Element{
     public boolean getCollision(){
         return collision;
     }
+
+    public void setCollision(boolean collision){
+        this.collision = collision;
+        Color coleur = this.collision ? Color.RED : Color.YELLOW;
+        this.setCouleur(coleur);
+    }
     public Obstacle(){
 
     }
@@ -42,8 +48,5 @@ public class Obstacle extends Element{
         this.setRayon(rayon);
     }
 
-    public void setCouleur(Color couleur) {
-        //this.couleur = couleur;
-    }
 
 }
