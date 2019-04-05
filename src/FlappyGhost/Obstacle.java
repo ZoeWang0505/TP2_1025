@@ -37,15 +37,24 @@ public class Obstacle extends Element{
     }
 
 @Override
-    public int[] getPointPasse(){
-        //TODO:
-        int[] pointPasse = new int[]{this.getCoordX(), this.getCoordY()};
+    public int getPointPasse(){
+        int pointPasse = this.getCoordX() + this.getRayon();
         return pointPasse;
     }
 
     @Override
     public void bouger(double vitesseX, double vitesseY){
         //TODO:
+        switch (this.type){
+            case SIMPLE:
+                // ne bouge pas
+                break;
+            case SINUS:
+                //
+                break;
+            case QUANTIQUE:
+                break;
+        }
     }
 
 
@@ -54,7 +63,21 @@ public class Obstacle extends Element{
         int range = rayonMax - rayonMin + 1;
         int rayon = (int)(Math.random() * range) + rayonMin;
         this.setRayon(rayon);
+        this.type = getRandonType();
     }
 
+    private obstacleType getRandonType(){
+        int typeInt = (int)(Math.random() * 3);
+        switch (typeInt){
+            case 0:
+                return obstacleType.SIMPLE;
+            case 1:
+                return obstacleType.SINUS;
+            case 2:
+                return obstacleType.QUANTIQUE;
+            default:
+                return obstacleType.SIMPLE;
+        }
+    }
 
 }

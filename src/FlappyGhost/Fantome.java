@@ -30,4 +30,10 @@ public class Fantome extends Element{
     public void bouger(double vitesseX, double vitesseY){
         //TODO:
     }
+
+    @Override
+    public int getPointPasse(){
+        int pointPasse = this.getCoordX() - this.getRayon();
+        return pointPasse;
+    }
 }

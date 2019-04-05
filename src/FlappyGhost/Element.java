@@ -70,10 +70,8 @@ public class Element {
     }
 
 
-    public int[] getPointPasse(){
-        //TODO:
-        int[] pointPasse = new int[]{this.coordX, this.coordY};
-        return pointPasse;
+    public int getPointPasse(){
+        return 0;
     }
 
     public void bouger(double vitesseX, double vitesseY){
