@@ -1,6 +1,6 @@
 package FlappyGhost;
 
-public class Phantome extends Element{
+public class Fantome extends Element{
     private double m_gravite;
     public double getGravite(){
         double val = m_gravite;
