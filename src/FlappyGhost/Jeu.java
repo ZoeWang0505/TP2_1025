@@ -59,7 +59,6 @@ public class Jeu {
                 this.nbreObstaclesPasses++;
             }
         }
-
     }
 
 

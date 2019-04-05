@@ -1,5 +1,6 @@
 package FlappyGhost;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -54,8 +55,42 @@ public class Vue extends Application {
 
         // -----------temporaire ---------------
         GraphicsContext context = canvas.getGraphicsContext2D();
-        context.drawImage(Resources.getBg(), 100, 0, 640, 400);
-        context.drawImage(Resources.getBg(), (100-640), 0, 640, 400);
+        //context.drawImage(Resources.getBg(), 100, 0, WIDTH, HEIGHT-40);
+        //context.drawImage(Resources.getBg(), (100-WIDTH), 0, WIDTH, HEIGHT-40);
+
+
+        AnimationTimer timer = new AnimationTimer() { // Classe anonyme
+            private long lastTime = 0;
+            private double xBackground = 0;
+
+            @Override
+            public void start() {
+                lastTime = System.nanoTime();
+                super.start(); // Commence les appels de handle(...)
+            }
+
+            @Override
+            public void handle(long now) {
+
+                // Temps en sec = 10^(-9) * temps en nanosec
+                double deltaTime = (now - lastTime) * 1e-9;
+                xBackground -= deltaTime * 90; // 90 pixels/s
+
+
+                context.clearRect(0, 0, WIDTH, HEIGHT-40);
+                context.drawImage(Resources.getBg(), xBackground, 0, WIDTH, HEIGHT-40);
+                context.drawImage(Resources.getBg(), (xBackground + WIDTH), 0, WIDTH, HEIGHT-40);
+
+                if (xBackground < -WIDTH){
+                    xBackground = xBackground + WIDTH;
+                }
+
+                lastTime = now;
+            }
+        };
+        timer.start(); // démarrer le timer
+
+
 
 
         /*

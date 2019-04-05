@@ -13,7 +13,7 @@ public class Controleur {
         this.jeu = new Jeu();
 
         //vue.miseAJour();
-        jeu.jouer();
+        //jeu.jouer();
     }
 
 
