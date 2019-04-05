@@ -3,6 +3,8 @@ package FlappyGhost;
 import com.sun.javafx.binding.StringFormatter;
 import javafx.scene.image.Image;
 
+import java.text.MessageFormat;
+
 public class Resources {
     private static String m_Images[] = {
             "0.png", "1.png", "2.png", "3.png", "4.png", "5.png", "6.png",
@@ -11,19 +13,19 @@ public class Resources {
             "22.png", "23.png", "24.png", "25.png", "26.png"
     };
 
-    public static String getImagePath(int n){
+    public static Image getImagePath(int n){
         String str = "";
         if(n <= m_Images.length - 1) {
-            str = String.format("\'obstacles\'{0}", m_Images[n]);
-            return str;
+            str = MessageFormat.format("file:obstacles/{0}", m_Images[n]);
+            return new Image(str);
         }
-        return str;
+        return null;
     }
 
-    public  static Image getGhost(){
+    public static Image getGhost(){
         return new Image("file:ghost.png");
     }
-    public  static Image getBg(){
+    public static Image getBg(){
         return new Image("file:bg.png");
     }
 }
