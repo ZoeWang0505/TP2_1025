@@ -5,14 +5,22 @@ import javafx.scene.paint.Color;
 
 public class Obstacle extends Element{
 
+    private enum obstacleType {SIMPLE, SINUS, QUANTIQUE};
+
+    private obstacleType type;
+
     private int rayonMax = 45;
     private int rayonMin = 10;
 
-    private boolean m_passe;
+    private boolean passe;
     public boolean getPasse(){
-        boolean val = m_passe;
+        boolean val = this.passe;
         return val;
     }
+    public void setPasse(boolean passe){
+        this.passe = passe;
+    }
+
 
     private boolean collision = false;
     public boolean getCollision(){
