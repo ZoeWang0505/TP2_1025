@@ -51,6 +51,7 @@ public class Vue extends Application {
     }
 
     public void miseAJour(String text) {
-        output.setText(text);
+        //output.setText(text);
+    }
 }
 
