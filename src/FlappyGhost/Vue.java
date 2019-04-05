@@ -54,7 +54,8 @@ public class Vue extends Application {
 
         // -----------temporaire ---------------
         GraphicsContext context = canvas.getGraphicsContext2D();
-        context.drawImage(Resources.getBg(), 0, 0, 640, 400);
+        context.drawImage(Resources.getBg(), 100, 0, 640, 400);
+        context.drawImage(Resources.getBg(), (100-640), 0, 640, 400);
 
 
         /*
