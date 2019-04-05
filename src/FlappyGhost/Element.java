@@ -20,10 +20,16 @@ public class Element {
     public int getCoordX() {
         return coordX;
     }
+    public void setCoordX(int x) {
+        this.coordY = x;
+    }
 
     private int coordY;
     public int getCoordY() {
         return coordY;
+    }
+    public void setCoordY(int y){
+        this.coordY = y;
     }
 
     private int rayon = 0;

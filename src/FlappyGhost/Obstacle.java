@@ -11,6 +11,8 @@ public class Obstacle extends Element{
 
     private int rayonMax = 45;
     private int rayonMin = 10;
+    private int currentRadian = 0;
+    private int radianMax = 360;
 
     private boolean passe;
     public boolean getPasse(){
@@ -50,7 +52,12 @@ public class Obstacle extends Element{
                 // ne bouge pas
                 break;
             case SINUS:
-                //
+                if(currentRadian <= radianMax){
+                    currentRadian ++;
+                }
+                int offset = (int)(Math.sin(currentRadian) * 25);
+                this.setCoordY(this.getCoordY() + offset);
+
                 break;
             case QUANTIQUE:
                 break;
