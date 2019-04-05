@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -24,10 +25,8 @@ public class Vue extends Application {
     private int HEIGHT = 440;
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Pane root = new Pane();
+        VBox root = new VBox();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
-
-        Text titre = new Text("Flappy Ghost\n\n");
 
         Canvas canvas = new Canvas(WIDTH, HEIGHT-40);
         HBox menuBoutons = new HBox();
@@ -42,6 +41,7 @@ public class Vue extends Application {
         menuBoutons.setAlignment(Pos.CENTER);
 
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Flappy Ghost");
         primaryStage.show();
 
 

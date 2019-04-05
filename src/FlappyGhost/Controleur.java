@@ -12,8 +12,8 @@ public class Controleur {
         this.vue = vue;
         this.jeu = new Jeu();
 
-        vue.miseAJour();
-        jeu.jouer();
+        //vue.miseAJour();
+        //jeu.jouer();
     }
 
 
