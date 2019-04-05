@@ -1,6 +1,7 @@
 package FlappyGhost;
 
 import com.sun.javafx.binding.StringFormatter;
+import javafx.scene.image.Image;
 
 public class Resources {
     private static String m_Images[] = {
@@ -17,5 +18,12 @@ public class Resources {
             return str;
         }
         return str;
+    }
+
+    public  static Image getGhost(){
+        return new Image("file:ghost.png");
+    }
+    public  static Image getBg(){
+        return new Image("file:bg.png");
     }
 }
