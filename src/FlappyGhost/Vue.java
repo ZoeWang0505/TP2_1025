@@ -2,10 +2,12 @@ package FlappyGhost;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -32,12 +34,12 @@ public class Vue extends Application {
         root.getChildren().add(canvas);
         root.getChildren().add(menuBoutons);
         Button pause = new Button("Pause");
-        Button centre = new Button("Centre");
-        Button droite = new Button("Droite");
+        CheckBox modeDebug = new CheckBox("Mode debug");
+        Text score = new Text("Score: 0");
         menuBoutons.getChildren().add(pause);
-        buttonGroup.getChildren().add(centre);
-        buttonGroup.getChildren().add(droite);
-        buttonGroup.setAlignment(Pos.CENTER);
+        menuBoutons.getChildren().add(modeDebug);
+        menuBoutons.getChildren().add(score);
+        menuBoutons.setAlignment(Pos.CENTER);
 
         primaryStage.setScene(scene);
         primaryStage.show();
