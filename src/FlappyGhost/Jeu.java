@@ -1,30 +1,38 @@
 package FlappyGhost;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import java.util.ArrayList;
 
-public class Jeu extends Application {
+public class Jeu {
+    private ArrayList listeObstacle = null;
+    private int nbreObstaclesPasses = 0;
+    private int score = 0;
+    private boolean collision = false;
+    private boolean modeDebug = false;
 
-    private int WIDTH = 480;
-    private int HEIGHT = 300;
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Pane root = new Pane();
-        Scene scene = new Scene(root, WIDTH, HEIGHT);
 
-        Canvas canvas = new Canvas(WIDTH, HEIGHT);
-        root.getChildren().add(canvas);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public void initialiser(){}
+
+    public void jouer(){
+        this.initialiser();
+
+        while (!this.collision){
+            this.collision();
+            this.miseAJourEnvironnement();
+        }
     }
 
+    public void collision(){}
 
-    public static void main(String[] args) {
-        launch(args);
+    public void miseAJourEnvironnement(){
+        this.ajouterObstacles();
+        this.obstaclesPasses();
     }
+
+    public void ajouterObstacles(){}
+
+    public void obstaclesPasses(){}
+
+
+
+
 }
