@@ -1,6 +1,9 @@
 package FlappyGhost;
 
+import javafx.scene.paint.Color;
+
 public class Fantome extends Element{
+
     private double m_gravite;
     public double getGravite(){
         double val = m_gravite;
@@ -14,9 +17,17 @@ public class Fantome extends Element{
 
     }
 
+    public Fantome(int x, int y,boolean isDebug){
+        super(x, y, 30,  Color.BLACK, isDebug);
+    }
+
     // @Override
 //    public int[] getPasspoint(){
 //        //TODO:
 //
 //    }
+    @Override
+    public void bouger(double vitesseX, double vitesseY){
+        //TODO:
+    }
 }

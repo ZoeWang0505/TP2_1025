@@ -6,19 +6,34 @@ import javafx.scene.paint.Color;
 public class Element {
     private double vitesseX;
     private double vitesseY;
+
     private Color couleur;
-
-    private int coodX;
-    public int getCoodX() {
-        return coodX;
+    public Color getCouleur() {
+        return couleur;
     }
 
-    private int coodY;
-    public int getcoodY() {
-        return coodY;
+    public void setCouleur(Color couleur) {
+        this.couleur = couleur;
     }
 
-    private double rayon;
+    private int coordX;
+    public int getCoordX() {
+        return coordX;
+    }
+
+    private int coordY;
+    public int getCoordY() {
+        return coordY;
+    }
+
+    private int rayon = 0;
+    public int getRayon(){
+        int val = this.rayon;
+        return val;
+    }
+    public void setRayon(int r){
+        this.rayon = r;
+    }
 
 
     private boolean modeDebug;
@@ -31,10 +46,17 @@ public class Element {
         //update view
     }
 
-    public Element(int x, int y, double rayon, Color couleur, boolean isDebug){
-        this.coodX = x;
-        this.coodY = y;
+    public Element(int x, int y, int rayon, Color couleur, boolean isDebug){
+        this.coordX = x;
+        this.coordY = y;
         this.rayon = rayon;
+        this.modeDebug = isDebug;
+        this.couleur = couleur;
+    }
+
+    public Element(int x, int y,Color couleur, boolean isDebug){
+        this.coordX = x;
+        this.coordY = y;
         this.modeDebug = isDebug;
         this.couleur = couleur;
     }
@@ -50,7 +72,7 @@ public class Element {
 
     public int[] getPointPasse(){
         //TODO:
-        int[] pointPasse = new int[]{this.coodY, this.coodY};
+        int[] pointPasse = new int[]{this.coordX, this.coordY};
         return pointPasse;
     }
 
