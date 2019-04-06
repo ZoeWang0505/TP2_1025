@@ -7,6 +7,7 @@ public class Controleur {
     public Controleur(Vue vue) {
         this.vue = vue;
         this.jeu = new Jeu(vue.getLrgFenetre(), vue.getHtrFenetre(), vue.getHtrBarreTache());
+        this.jeu.initialiser();
 
         // faire rouler le jeu dans un second thread
         Thread t = new Thread(() -> {
@@ -14,13 +15,8 @@ public class Controleur {
         });
         t.start();
 
-        Fantome fantome = jeu.getFantome();  //TODO: figure out why coordX and coordY do not appear
-        //System.out.println(fantome.getCoordX());
-        //System.out.println(fantome.getCoordY());
-
-        //int yFantome = fantome.getCoordY();
-
-        //vue.miseAJour(xFantome, yFantome);
+        Fantome fantome = jeu.getFantome();
+        vue.miseAJour(fantome.getCoordX(), fantome.getCoordY());
     }
 
 
