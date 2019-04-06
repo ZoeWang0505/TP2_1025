@@ -7,16 +7,22 @@ public class Controleur {
     public Controleur(Vue vue) {
         this.vue = vue;
         this.jeu = new Jeu(vue.getLrgFenetre(), vue.getHtrFenetre(), vue.getHtrBarreTache());
-        this.jeu.initialiser();
 
         // faire rouler le jeu dans un second thread
         Thread t = new Thread(() -> {
-        jeu.jouer();
+            jeu.jouer();
         });
         t.start();
 
+        try{
+            t.join();
+        } catch (InterruptedException e) {
+            System.out.println("Interrpution");
+        }
+
         Fantome fantome = jeu.getFantome();
         vue.miseAJour(fantome.getCoordX(), fantome.getCoordY());
+
     }
 
 
