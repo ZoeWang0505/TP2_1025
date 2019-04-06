@@ -4,27 +4,36 @@ import javafx.scene.paint.Color;
 
 
 public class Obstacle extends Element{
-
     private enum obstacleType {SIMPLE, SINUS, QUANTIQUE};
-
     private obstacleType type;
-
     private int rayonMax = 45;
     private int rayonMin = 10;
     private int currentRadian = 0;
     private int radianMax = 360;
+    private boolean passe = false;
+    private boolean collision = false;
 
-    private boolean passe;
+    public Obstacle(int lrgCanva, int htrCanva){
+        super(Color.YELLOW);
+        int range = rayonMax - rayonMin + 1;
+        int rayon = (int)(Math.random() * range) + rayonMin;
+        this.setRayon(rayon);
+
+        this.setCoordY((int)(Math.random() * htrCanva));
+        this.setCoordX(lrgCanva + this.getRayon());
+
+        this.type = getRandomType();
+    }
+
     public boolean getPasse(){
         boolean val = this.passe;
         return val;
     }
+
     public void setPasse(boolean passe){
         this.passe = passe;
     }
 
-
-    private boolean collision = false;
     public boolean getCollision(){
         return collision;
     }
@@ -33,9 +42,6 @@ public class Obstacle extends Element{
         this.collision = collision;
         Color coleur = this.collision ? Color.RED : Color.YELLOW;
         this.setCouleur(coleur);
-    }
-    public Obstacle(){
-
     }
 
 @Override
@@ -65,15 +71,7 @@ public class Obstacle extends Element{
     }
 
 
-    public Obstacle(int x, int y,boolean isDebug){
-        super(x, y, Color.YELLOW, isDebug);
-        int range = rayonMax - rayonMin + 1;
-        int rayon = (int)(Math.random() * range) + rayonMin;
-        this.setRayon(rayon);
-        this.type = getRandonType();
-    }
-
-    private obstacleType getRandonType(){
+    private obstacleType getRandomType(){
         int typeInt = (int)(Math.random() * 3);
         switch (typeInt){
             case 0:

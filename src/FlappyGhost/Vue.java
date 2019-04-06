@@ -2,36 +2,47 @@ package FlappyGhost;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Vue extends Application {
-    // Contrôleur de l'application
-    private Controleur controleur;
+    private Controleur controleur;  // Contrôleur de l'application
+    private int lrgFenetre = 640;
+    private int htrFenetre = 440;
+    private int htrBarreTache = 40;
+    int xFantome;
+    int yFantome;
+
+    public int getLrgFenetre() {
+        return lrgFenetre;
+    }
+
+    public int getHtrFenetre() {
+        return htrFenetre;
+    }
+
+    public int getHtrBarreTache() {
+        return htrBarreTache;
+    }
 
 
     public static void main(String[] args) {Vue.launch(args);}
 
-    private int WIDTH = 640;
-    private int HEIGHT = 440;
     @Override
     public void start(Stage primaryStage) throws Exception{
         VBox root = new VBox(8);
-        Scene scene = new Scene(root, WIDTH, HEIGHT);
+        Scene scene = new Scene(root, lrgFenetre, htrFenetre);
 
-        Canvas canvas = new Canvas(WIDTH, HEIGHT-40);
+        Canvas canvas = new Canvas(lrgFenetre, htrFenetre - htrBarreTache);
+        GraphicsContext context = canvas.getGraphicsContext2D();
         HBox menuBoutons = new HBox(10);
         root.getChildren().add(canvas);
         root.getChildren().add(menuBoutons);
@@ -49,14 +60,8 @@ public class Vue extends Application {
         primaryStage.show();
 
 
-
         // Création du contrôleur
         controleur = new Controleur(this);
-
-        // -----------temporaire ---------------
-        GraphicsContext context = canvas.getGraphicsContext2D();
-        //context.drawImage(Resources.getBg(), 100, 0, WIDTH, HEIGHT-40);
-        //context.drawImage(Resources.getBg(), (100-WIDTH), 0, WIDTH, HEIGHT-40);
 
 
         AnimationTimer timer = new AnimationTimer() { // Classe anonyme
@@ -77,28 +82,29 @@ public class Vue extends Application {
                 xBackground -= deltaTime * 90; // 90 pixels/s
 
 
-                context.clearRect(0, 0, WIDTH, HEIGHT-40);
-                context.drawImage(Resources.getBg(), xBackground, 0, WIDTH, HEIGHT-40);
-                context.drawImage(Resources.getBg(), (xBackground + WIDTH), 0, WIDTH, HEIGHT-40);
+                context.clearRect(0, 0, lrgFenetre, htrFenetre - htrBarreTache);
+                context.drawImage(Resources.getBg(), xBackground, 0, lrgFenetre, htrFenetre - htrBarreTache);
+                context.drawImage(Resources.getBg(), (xBackground + lrgFenetre), 0, lrgFenetre,
+                        htrFenetre - htrBarreTache);
 
-                if (xBackground < -WIDTH){
-                    xBackground = xBackground + WIDTH;
+                if (xBackground < -lrgFenetre){
+                    xBackground = xBackground + lrgFenetre;
                 }
+
+                // afficher le fantome
+                context.drawImage(Resources.getGhost(), xFantome, yFantome); //TODO:update ghost coords in real time
 
                 lastTime = now;
             }
         };
-        timer.start(); // démarrer le timer
-
-
-
-
-        /*
-        public void miseAJour() {
-            context.drawImage(Resources.getBg(), 0, 0, 640, 400);
-        }*/
-
+        timer.start(); // demarrer le timer
     }
 
+    public void miseAJour(int xFantome, int yFantome) {
+        this.xFantome = xFantome;
+        this.yFantome = yFantome;
+
+        //TODO: update attributes depending on input from Controller
+    }
 }
 

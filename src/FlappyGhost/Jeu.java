@@ -4,41 +4,56 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Jeu {
-    private ArrayList listeObstacles;
+    private ArrayList<Obstacle> listeObstacles;
     private Fantome fantome;
     private int nbreObstaclesPasses = 0;
     private int score = 0;
     private boolean collision = false;
     private boolean modeDebug = false;
+    private long tempsRef;
+    private int lrgCanva;
+    private int htrCanva;
+
+    public Fantome getFantome() {
+        return fantome;
+    }
+
+    public Jeu(int lrgFenetre, int htrFenetre, int htrBarreTache) {
+        this.lrgCanva = lrgFenetre;
+        this.htrCanva = htrFenetre - htrBarreTache;
+    }
 
 
     public void initialiser(){
-        fantome = new Fantome(0,10, false);
-        listeObstacles = new ArrayList();
+        this.fantome = new Fantome(this.lrgCanva/2,htrCanva/2);
+        this.listeObstacles = new ArrayList<>();
     }
 
-    public void jouer(){
-        while (true) {
-            this.initialiser();
 
-            while (!this.collision) {
-                this.collision();
-                this.miseAJourEnvironnement();
+    public void jouer(){
+            while (true) {
+                this.initialiser();
+
+                tempsRef = System.nanoTime();
+                while (!this.collision) {
+                    this.collision();
+                    this.miseAJourEnvironnement();
+                }
             }
-        }
     }
 
     public void collision(){
-        Iterator i = this.listeObstacles.iterator();
+        Iterator<Obstacle> i = this.listeObstacles.iterator();
         while (i.hasNext()) {
-            double distX = Math.abs(this.fantome.getCoordX() - ((Obstacle)i.next()).getCoordX());
-            double distY = Math.abs(this.fantome.getCoordY() - ((Obstacle)i.next()).getCoordY());
+            Obstacle obs = i.next();
+            double distX = Math.abs(this.fantome.getCoordX() - obs.getCoordX());
+            double distY = Math.abs(this.fantome.getCoordY() - obs.getCoordY());
             double distCentres = Math.sqrt((distX * distX) + (distY * distY));
-            double sommeRayons = this.fantome.getRayon() + ((Obstacle)i.next()).getRayon();
+            double sommeRayons = this.fantome.getRayon() + obs.getRayon();
 
             if (distCentres < sommeRayons){
                 this.collision = true;
-                ((Obstacle)i.next()).setCollision(true);
+                obs.setCollision(true);
             }
         }
     }
@@ -48,20 +63,28 @@ public class Jeu {
         this.obstaclesPasses();
     }
 
-    public void ajouterObstacles(){}
+    public void ajouterObstacles(){
+        long tempsActuel = System.nanoTime();
+        double deltaTemps = (tempsActuel - tempsRef) * 1e-9;
+
+        if (deltaTemps >= 3) {
+            Obstacle obstacle = new Obstacle(lrgCanva, htrCanva);
+            this.listeObstacles.add(obstacle);
+            tempsRef = tempsActuel;
+        }
+    }
 
     public void obstaclesPasses(){
-        Iterator i = this.listeObstacles.iterator();
+        Iterator<Obstacle> i = this.listeObstacles.iterator();
         while (i.hasNext()) {
-            if (!((Obstacle)i.next()).getPasse() && ((Obstacle)i.next()).getPointPasse() < this.fantome.getPointPasse()){
-                ((Obstacle)i.next()).setPasse(true);
+            Obstacle obs = i.next();
+            if (!obs.getPasse() && obs.getPointPasse() < this.fantome.getPointPasse()) {
+                obs.setPasse(true);
                 this.score += 5;
                 this.nbreObstaclesPasses++;
             }
         }
     }
-
-
 
 
 }
