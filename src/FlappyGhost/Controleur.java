@@ -1,29 +1,43 @@
 package FlappyGhost;
 
+
+import javafx.animation.AnimationTimer;
+
 public class Controleur {
     private Vue vue; // la vue est le point d'entree de l'application JavaFX
     private Jeu jeu; // le modele de l'application est une instance de Jeu
 
     public Controleur(Vue vue) {
         this.vue = vue;
-        this.jeu = new Jeu(vue.getLrgFenetre(), vue.getHtrFenetre(), vue.getHtrBarreTache());
-
-        // faire rouler le jeu dans un second thread
-        Thread t = new Thread(() -> {
-            jeu.jouer();
-        });
-        t.start();
-
-        try{
-            t.join();
-        } catch (InterruptedException e) {
-            System.out.println("Interrpution");
-        }
-
-        Fantome fantome = jeu.getFantome();
-        vue.miseAJour(fantome.getCoordX(), fantome.getCoordY());
-
     }
 
+    private void jeuInitialise(){
+        this.jeu = new Jeu(vue.getLrgFenetre(), vue.getHtrFenetre() - vue.getHtrBarreTache());
+        this.jeu.initialiser();
+    }
 
+    public void start() {
+        AnimationTimer timer = new AnimationTimer() { // Classe anonyme
+            private long lastTime = 0;
+
+            @Override
+            public void start() {
+                lastTime = System.nanoTime();
+                jeuInitialise();
+                super.start(); // Commence les appels de handle(...)
+            }
+
+            @Override
+            public void handle(long now) {
+                jeu.jouer((now - lastTime) * 1e-9 );
+                //if collision is true, die
+                if(jeu.getCollision()){
+                    jeuInitialise();
+                }
+                vue.miseAJour(jeu);
+                lastTime = now;
+            }
+        };
+        timer.start(); // demarrer le timer
+    }
 }

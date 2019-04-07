@@ -14,6 +14,21 @@ public class Element {
     private Image elementImage;
 
 
+    public double getVitesseX() {
+        return vitesseX;
+    }
+    public double getVitesseY(){
+        return vitesseY;
+    }
+
+    public void setImage(Image img){
+        this.elementImage = img;
+    }
+    public Image getImage(){
+        return this.elementImage;
+    }
+
+
     public Color getCouleur() {
         return couleur;
     }
@@ -67,22 +82,20 @@ public class Element {
         this.couleur = couleur;
     }
 
+    public Element(int x, int y){
+        this.coordX = x;
+        this.coordY = y;
+    }
 
     public Element(Color couleur){
         this.couleur = couleur;
     }
 
-
-    public void setImage(Image img){
-        this.elementImage = img;
-    }
-
-
     public int getPointPasse(){
         return 0;
     }
 
-    public void bouger(double vitesseX, double vitesseY){
+    public void bouger(int lrgCanva, int htrCanva, double vitesseX, double vitesseY, double deltaTime){
         //TODO:
     }
 

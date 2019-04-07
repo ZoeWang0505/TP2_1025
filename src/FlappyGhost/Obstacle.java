@@ -23,6 +23,7 @@ public class Obstacle extends Element{
         this.setCoordX(lrgCanva + this.getRayon());
 
         this.type = getRandomType();
+        this.setImage();
     }
 
     public boolean getPasse(){
@@ -51,7 +52,7 @@ public class Obstacle extends Element{
     }
 
     @Override
-    public void bouger(double vitesseX, double vitesseY){
+    public void bouger(int lrgCanva, int htrCanva, double vitesseX, double vitesseY, double deltaTime){
         //TODO:
         switch (this.type){
             case SIMPLE:
@@ -83,6 +84,11 @@ public class Obstacle extends Element{
             default:
                 return obstacleType.SIMPLE;
         }
+    }
+
+    private void setImage(){
+        int num = (int)(Math.random() * 26);
+        super.setImage(Resources.getImage(num));
     }
 
 }

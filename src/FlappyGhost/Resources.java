@@ -13,7 +13,7 @@ public class Resources {
             "22.png", "23.png", "24.png", "25.png", "26.png"
     };
 
-    public static Image getImagePath(int n){
+    public static Image getImage(int n){
         String str = "";
         if(n <= m_Images.length - 1) {
             str = MessageFormat.format("file:obstacles/{0}", m_Images[n]);

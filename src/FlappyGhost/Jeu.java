@@ -1,11 +1,11 @@
 package FlappyGhost;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 public class Jeu {
     private ArrayList<Obstacle> listeObstacles;
     private Fantome fantome;
+    private Background bg;
     private int nbreObstaclesPasses = 0;
     private int score = 0;
     private boolean collision = false;
@@ -13,33 +13,40 @@ public class Jeu {
     private long tempsRef;
     private int lrgCanva;
     private int htrCanva;
+    //private int htrBarreTache = 40;
+    //TODO:
+    //vitesse need to be modify
+    private double vitesseX = 10;
+    private double vitesseY = 4;
+
 
     public Fantome getFantome() {
         return fantome;
     }
 
-    public Jeu(int lrgFenetre, int htrFenetre, int htrBarreTache) {
+    public Background getBackgroud() {
+        return bg;
+    }
+
+    public Jeu(int lrgFenetre, int htrFenetre) {
         this.lrgCanva = lrgFenetre;
-        this.htrCanva = htrFenetre - htrBarreTache;
+        this.htrCanva = htrFenetre;
+        this.initialiser();
     }
 
 
     public void initialiser(){
         this.fantome = new Fantome(this.lrgCanva/2,htrCanva/2);
         this.listeObstacles = new ArrayList<>();
+        this.bg = new Background(0, 0);
     }
 
 
-    public void jouer(){
-            while (true) {
-                this.initialiser();
-
-                tempsRef = System.nanoTime();
-                while (!this.collision) {
-                    this.collision();
-                    this.miseAJourEnvironnement();
-                }
-            }
+    public void jouer(double detlaTime){
+         //tempsRef = System.nanoTime();
+         //tempsRef = detlaTime;
+         this.collision();
+         this.miseAJourEnvironnement(detlaTime);
     }
 
     public void collision(){
@@ -58,14 +65,20 @@ public class Jeu {
         }
     }
 
-    public void miseAJourEnvironnement(){
-        this.ajouterObstacles();
+    public boolean getCollision(){
+        return this.collision;
+    }
+
+    public void miseAJourEnvironnement(double detlaTime){
+        fantome.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, detlaTime);
+        bg.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, detlaTime);
+
+        this.ajouterObstacles(detlaTime);
         this.obstaclesPasses();
     }
 
-    public void ajouterObstacles(){
+    public void ajouterObstacles(double deltaTemps){
         long tempsActuel = System.nanoTime();
-        double deltaTemps = (tempsActuel - tempsRef) * 1e-9;
 
         if (deltaTemps >= 3) {
             Obstacle obstacle = new Obstacle(lrgCanva, htrCanva);
@@ -86,5 +99,5 @@ public class Jeu {
         }
     }
 
-
 }
+
