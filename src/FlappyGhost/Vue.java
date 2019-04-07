@@ -81,7 +81,10 @@ public class Vue extends Application {
 
         // afficher le fantome
         Fantome fantome = jeu.getFantome();
-        context.drawImage(fantome.getImage(), fantome.getCoordX(), fantome.getCoordY()); //TODO:update ghost coords in real time
+        context.drawImage(fantome.getImage(), fantome.getCoordX() - fantome.getRayon(),
+                fantome.getCoordY() - fantome.getRayon()); //TODO:update
+        // ghost
+        // coords in real time
 
         //this.xFantome = xFantome;
         //this.yFantome = yFantome;

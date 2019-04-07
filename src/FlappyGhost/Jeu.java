@@ -42,11 +42,11 @@ public class Jeu {
     }
 
 
-    public void jouer(double detlaTime){
+    public void jouer(double deltaTemps){
          //tempsRef = System.nanoTime();
-         //tempsRef = detlaTime;
+         //tempsRef = deltaTemps;
          this.collision();
-         this.miseAJourEnvironnement(detlaTime);
+         this.miseAJourEnvironnement(deltaTemps);
     }
 
     public void collision(){
@@ -69,11 +69,11 @@ public class Jeu {
         return this.collision;
     }
 
-    public void miseAJourEnvironnement(double detlaTime){
-        fantome.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, detlaTime);
-        bg.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, detlaTime);
+    public void miseAJourEnvironnement(double deltaTemps){
+        fantome.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
+        bg.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
 
-        this.ajouterObstacles(detlaTime);
+        this.ajouterObstacles(deltaTemps);
         this.obstaclesPasses();
     }
 
