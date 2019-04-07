@@ -13,14 +13,14 @@ public class Obstacle extends Element{
     private boolean passe = false;
     private boolean collision = false;
 
-    public Obstacle(int lrgCanva, int htrCanva){
+    public Obstacle(int lrgCanva, int htrCanva, Fantome fantome){
         super(Color.YELLOW);
         int range = rayonMax - rayonMin + 1;
         int rayon = (int)(Math.random() * range) + rayonMin;
         this.setRayon(rayon);
 
         this.setCoordY((int)(Math.random() * htrCanva));
-        this.setCoordX(lrgCanva + this.getRayon());
+        this.setCoordX(fantome.getCoordX() + lrgCanva/2 + this.getRayon());
 
         this.type = getRandomType();
         this.setImage();

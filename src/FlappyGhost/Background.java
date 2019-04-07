@@ -13,7 +13,7 @@ public class Background extends Element {
         if(offsetX + lrgCanva > 0){
             this.setCoordX(offsetX);
         } else {
-            this.setCoordX( offsetX + lrgCanva);
+            this.setCoordX(offsetX + lrgCanva);
         }
     }
 }

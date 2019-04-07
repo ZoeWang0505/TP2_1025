@@ -92,7 +92,7 @@ public class Vue extends Application {
         while(it.hasNext()){
             Obstacle obstacle = (Obstacle)it.next();
             context.drawImage(obstacle.getImage(),
-                    obstacle.getCoordX(),obstacle.getCoordY(),
+                    obstacle.getCoordX() - obstacle.getRayon(),obstacle.getCoordY() - obstacle.getRayon(),
                     obstacle.getRayon(), obstacle.getRayon());
         }
 

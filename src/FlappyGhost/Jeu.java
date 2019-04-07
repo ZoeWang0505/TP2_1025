@@ -7,6 +7,7 @@ public class Jeu {
     private Fantome fantome;
     private Background bg;
     private int nbreObstaclesPasses = 0;
+    private boolean augmenterVitesseX = false;
     private int score = 0;
     private boolean collision = false;
     private boolean modeDebug = false;
@@ -17,7 +18,7 @@ public class Jeu {
     //TODO:
     //vitesse need to be modify
     private double vitesseX = 120;
-    private double vitesseY = 4;
+    private double vitesseY = 0;
     private double ajoutObstaclesTemps = 0;
 
     public ArrayList<Obstacle> getListeObstacles(){
@@ -73,6 +74,12 @@ public class Jeu {
     }
 
     public void miseAJourEnvironnement(double deltaTemps){
+        // la vitesse du fantome augmente de 15px/s a chaque deux obstacles depasses
+        if (this.augmenterVitesseX) {
+            this.vitesseX += 15 * ((nbreObstaclesPasses + 1) % 2);
+            this.augmenterVitesseX = false;
+            //System.out.println(vitesseX);
+        }
         fantome.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
         bg.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
 
@@ -89,11 +96,10 @@ public class Jeu {
     public void ajouterObstacles(double deltaTemps){
 
         if (ajoutObstaclesTemps >= 3) {
-            for(int i = 0; i < 3; i ++) {
-                Obstacle obstacle = new Obstacle(lrgCanva, htrCanva);
-                this.listeObstacles.add(obstacle);
-                ajoutObstaclesTemps = 0;
-            }
+            Obstacle obstacle = new Obstacle(lrgCanva, htrCanva, fantome);
+            this.listeObstacles.add(obstacle);
+            ajoutObstaclesTemps = 0;
+
         } else {
             ajoutObstaclesTemps += deltaTemps;
         }
@@ -107,6 +113,9 @@ public class Jeu {
                 obs.setPasse(true);
                 this.score += 5;
                 this.nbreObstaclesPasses++;
+                this.augmenterVitesseX = true;
+
+                //System.out.println(nbreObstaclesPasses);
             }
         }
     }

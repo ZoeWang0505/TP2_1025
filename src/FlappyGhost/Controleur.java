@@ -30,7 +30,7 @@ public class Controleur {
             @Override
             public void handle(long now) {
                 double deltaTemps = (now - lastTime) * 1e-9;
-                jeu.jouer( deltaTemps);
+                jeu.jouer(deltaTemps);
                 //if collision is true, die
                 if(jeu.getCollision()){
                  //   jeuInitialise();
