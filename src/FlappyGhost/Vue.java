@@ -86,6 +86,15 @@ public class Vue extends Application {
 
         // afficher le fantome
         Fantome fantome = jeu.getFantome();
+<<<<<<< HEAD
+        context.drawImage(fantome.getImage(), fantome.getCoordX() - fantome.getRayon(),
+                fantome.getCoordY() - fantome.getRayon()); //TODO:update
+        // ghost
+        // coords in real time
+
+        //this.xFantome = xFantome;
+        //this.yFantome = yFantome;
+=======
         context.drawImage(fantome.getImage(), fantome.getCoordX(), fantome.getCoordY());
 
         // afficher les obstacles
@@ -96,6 +105,7 @@ public class Vue extends Application {
                     obstacle.getCoordX(),obstacle.getCoordY(),
                     obstacle.getRayon(), obstacle.getRayon());
         }
+>>>>>>> 999f98e1ca69b1ed15d6040d11e49bb7aad6dfe4
 
         //TODO: update attributes depending on input from Controller
     }
