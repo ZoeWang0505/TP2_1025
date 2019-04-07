@@ -12,6 +12,10 @@ public class Obstacle extends Element{
     private int radianMax = 360;
     private boolean passe = false;
     private boolean collision = false;
+    private double tempsOscillement = 0;
+    private double tempsTeleportation = 0;
+    private int rangeTeleportation = 30;
+
 
     public Obstacle(int lrgCanva, int htrCanva, Fantome fantome){
         super(Color.YELLOW);
@@ -52,22 +56,38 @@ public class Obstacle extends Element{
     }
 
     @Override
-    public void bouger(int lrgCanva, int htrCanva, double vitesseX, double vitesseY, double deltaTime){
+    public void bouger(int lrgCanva, int htrCanva, double vitesseX, double vitesseY, double deltaTemps){
         //TODO:
         switch (this.type){
             case SIMPLE:
                 // ne bouge pas
-                this.setCoordX((int)(this.getCoordX() - vitesseX * deltaTime));
+                this.setCoordX((int)(this.getCoordX() - vitesseX * deltaTemps));
                 break;
             case SINUS:
-                if(currentRadian <= radianMax){
-                    currentRadian ++;
+                if (tempsOscillement >= 0.1) {
+                    if (currentRadian <= radianMax) {
+                        currentRadian++;
+                    }
+                    int offsetY = (int) (Math.sin(currentRadian) * 25);
+                    this.setCoordY(this.getCoordY() + offsetY);
+                    tempsOscillement = 0;
+                } else {
+                    tempsOscillement += deltaTemps;
                 }
-                int offsetY = (int)(Math.sin(currentRadian) * 25);
-                this.setCoordY(this.getCoordY() + offsetY);
-
+                this.setCoordX((int) (this.getCoordX() - vitesseX * deltaTemps));
                 break;
             case QUANTIQUE:
+                if (tempsTeleportation >= 0.2) {
+                    double signeAleatoire = Math.pow(-1, Math.round(Math.random()));
+                    int offsetX = (int) (Math.random() * rangeTeleportation * signeAleatoire);
+                    int offsetY = (int) (Math.random() * rangeTeleportation * signeAleatoire);
+                    this.setCoordX(this.getCoordX() + offsetX);
+                    this.setCoordY(this.getCoordY() + offsetY);
+                    tempsTeleportation = 0;
+                } else {
+                    tempsTeleportation += deltaTemps;
+                }
+                this.setCoordX((int) (this.getCoordX() - vitesseX * deltaTemps));
                 break;
         }
 

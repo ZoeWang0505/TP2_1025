@@ -33,12 +33,13 @@ public class Controleur {
                 jeu.jouer(deltaTemps);
                 //if collision is true, die
                 if(jeu.getCollision()){
-                 //   jeuInitialise();
+                //    jeuInitialise();
                 }
                 vue.miseAJour(jeu);
                 lastTime = now;
             }
         };
         timer.start(); // demarrer le timer
+        
     }
 }

@@ -40,6 +40,10 @@ public class Jeu {
         this.initialiser();
     }
 
+    public int getScore() {
+        return score;
+    }
+
 
     public void initialiser(){
         this.fantome = new Fantome(this.lrgCanva/2,htrCanva/2);
@@ -114,8 +118,6 @@ public class Jeu {
                 this.score += 5;
                 this.nbreObstaclesPasses++;
                 this.augmenterVitesseX = true;
-
-                //System.out.println(nbreObstaclesPasses);
             }
         }
     }

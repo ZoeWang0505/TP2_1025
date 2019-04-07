@@ -1,6 +1,7 @@
 package FlappyGhost;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -70,6 +71,16 @@ public class Vue extends Application {
         // Création du contrôleur
         controleur = new Controleur(this);
         controleur.start();
+
+        // Après l’exécution de la fonction, le focus va automatiquement au canvas
+        Platform.runLater(() -> {
+            canvas.requestFocus();
+        });
+
+        // Lorsqu’on clique ailleurs sur la scène, le focus retourne sur le canvas */
+        scene.setOnMouseClicked((event) -> {
+            canvas.requestFocus();
+        });
     }
 
     public void miseAJour(Jeu jeu) {
@@ -80,7 +91,7 @@ public class Vue extends Application {
         context.drawImage(image, bg.getCoordX(),0, image.getWidth(), image.getHeight() );
         context.drawImage(image, (bg.getCoordX() + lrgFenetre), 0,image.getWidth(), image.getHeight());
 
-        score.setText((String.valueOf(bg.getCoordX())));
+        score.setText("Score: " + jeu.getScore());
 
         // afficher le fantome
         Fantome fantome = jeu.getFantome();
