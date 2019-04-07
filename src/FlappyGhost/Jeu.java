@@ -90,8 +90,11 @@ public class Jeu {
     public void ajouterObstacles(double deltaTemps){
 
         if (ajoutObstaclesTemps >= 3) {
-            Obstacle obstacle = new Obstacle(lrgCanva, htrCanva);
-            this.listeObstacles.add(obstacle);
+            for(int i = 0; i < 3; i ++) {
+                Obstacle obstacle = new Obstacle(lrgCanva, htrCanva);
+                this.listeObstacles.add(obstacle);
+                ajoutObstaclesTemps = 0;
+            }
         } else {
             ajoutObstaclesTemps += deltaTemps;
         }
