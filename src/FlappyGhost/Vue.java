@@ -1,6 +1,5 @@
 package FlappyGhost;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.beans.EventHandler;
 import java.util.Iterator;
 
 public class Vue extends Application {
@@ -86,16 +84,8 @@ public class Vue extends Application {
 
         // afficher le fantome
         Fantome fantome = jeu.getFantome();
-<<<<<<< HEAD
         context.drawImage(fantome.getImage(), fantome.getCoordX() - fantome.getRayon(),
-                fantome.getCoordY() - fantome.getRayon()); //TODO:update
-        // ghost
-        // coords in real time
-
-        //this.xFantome = xFantome;
-        //this.yFantome = yFantome;
-=======
-        context.drawImage(fantome.getImage(), fantome.getCoordX(), fantome.getCoordY());
+                fantome.getCoordY() - fantome.getRayon());
 
         // afficher les obstacles
         Iterator it = jeu.getListeObstacles().iterator();
@@ -105,7 +95,6 @@ public class Vue extends Application {
                     obstacle.getCoordX(),obstacle.getCoordY(),
                     obstacle.getRayon(), obstacle.getRayon());
         }
->>>>>>> 999f98e1ca69b1ed15d6040d11e49bb7aad6dfe4
 
         //TODO: update attributes depending on input from Controller
     }

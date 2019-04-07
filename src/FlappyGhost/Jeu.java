@@ -48,12 +48,6 @@ public class Jeu {
 
 
     public void jouer(double deltaTemps){
-<<<<<<< HEAD
-         //tempsRef = System.nanoTime();
-         //tempsRef = deltaTemps;
-=======
-
->>>>>>> 999f98e1ca69b1ed15d6040d11e49bb7aad6dfe4
          this.collision();
          this.miseAJourEnvironnement(deltaTemps);
     }
@@ -81,15 +75,12 @@ public class Jeu {
     public void miseAJourEnvironnement(double deltaTemps){
         fantome.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
         bg.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
-<<<<<<< HEAD
-=======
 
         Iterator it = listeObstacles.iterator();
         while (it.hasNext()){
             Obstacle obstacle = (Obstacle)it.next();
             obstacle.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
         }
->>>>>>> 999f98e1ca69b1ed15d6040d11e49bb7aad6dfe4
 
         this.ajouterObstacles(deltaTemps);
         this.obstaclesPasses();
