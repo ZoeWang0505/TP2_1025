@@ -8,12 +8,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.beans.EventHandler;
+import java.util.Iterator;
 
 public class Vue extends Application {
     private Controleur controleur;  // Contrôleur de l'application
@@ -24,6 +26,8 @@ public class Vue extends Application {
     int xFantome;
     int yFantome;
     long lastTime = 0;
+
+    Text score;
 
 
     public int getLrgFenetre() {
@@ -53,7 +57,7 @@ public class Vue extends Application {
         root.getChildren().add(menuBoutons);
         Button pause = new Button("Pause");
         CheckBox modeDebug = new CheckBox("Mode debug");
-        Text score = new Text("Score: 0");
+        score = new Text("Score: 0");
         menuBoutons.getChildren().add(pause);
         menuBoutons.getChildren().add(modeDebug);
         menuBoutons.getChildren().add(score);
@@ -71,16 +75,18 @@ public class Vue extends Application {
     }
 
     public void miseAJour(Jeu jeu) {
-
-        context.clearRect(0, 0, lrgFenetre, htrFenetre - htrBarreTache);
-
         //Afficher Background
         Background bg = jeu.getBackgroud();
-        context.drawImage(bg.getImage(), bg.getCoordX(),0);
-        context.drawImage(Resources.getBg(), (bg.getCoordX() + lrgFenetre), 0);
+        context.clearRect(0, 0, lrgFenetre, htrFenetre - htrBarreTache);
+        Image image = bg.getImage();
+        context.drawImage(image, bg.getCoordX(),0, image.getWidth(), image.getHeight() );
+        context.drawImage(image, (bg.getCoordX() + lrgFenetre), 0,image.getWidth(), image.getHeight());
+
+        score.setText((String.valueOf(bg.getCoordX())));
 
         // afficher le fantome
         Fantome fantome = jeu.getFantome();
+<<<<<<< HEAD
         context.drawImage(fantome.getImage(), fantome.getCoordX() - fantome.getRayon(),
                 fantome.getCoordY() - fantome.getRayon()); //TODO:update
         // ghost
@@ -88,6 +94,18 @@ public class Vue extends Application {
 
         //this.xFantome = xFantome;
         //this.yFantome = yFantome;
+=======
+        context.drawImage(fantome.getImage(), fantome.getCoordX(), fantome.getCoordY());
+
+        // afficher les obstacles
+        Iterator it = jeu.getListeObstacles().iterator();
+        while(it.hasNext()){
+            Obstacle obstacle = (Obstacle)it.next();
+            context.drawImage(obstacle.getImage(),
+                    obstacle.getCoordX(),obstacle.getCoordY(),
+                    obstacle.getRayon(), obstacle.getRayon());
+        }
+>>>>>>> 999f98e1ca69b1ed15d6040d11e49bb7aad6dfe4
 
         //TODO: update attributes depending on input from Controller
     }

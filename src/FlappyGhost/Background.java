@@ -9,12 +9,11 @@ public class Background extends Element {
 
     @Override
     public void bouger(int lrgCanva, int htrCanva, double vitesseX, double vitesseY, double deltaTime){
-        //TODO: vitesse need to redefine
-        int offsetX = (int)(this.getCoordX() - vitesseX);
-        if(offsetX <= - lrgCanva){
-            this.setCoordX(0);
+        int offsetX = this.getCoordX() - (int)(vitesseX * deltaTime);
+        if(offsetX + lrgCanva > 0){
+            this.setCoordX(offsetX);
         } else {
-            this.setCoordX((int) (this.getCoordX() - vitesseX));
+            this.setCoordX( offsetX + lrgCanva);
         }
     }
 }

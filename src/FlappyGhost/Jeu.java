@@ -16,8 +16,13 @@ public class Jeu {
     //private int htrBarreTache = 40;
     //TODO:
     //vitesse need to be modify
-    private double vitesseX = 10;
+    private double vitesseX = 120;
     private double vitesseY = 4;
+    private double ajoutObstaclesTemps = 0;
+
+    public ArrayList<Obstacle> getListeObstacles(){
+        return listeObstacles;
+    }
 
 
     public Fantome getFantome() {
@@ -38,13 +43,17 @@ public class Jeu {
     public void initialiser(){
         this.fantome = new Fantome(this.lrgCanva/2,htrCanva/2);
         this.listeObstacles = new ArrayList<>();
-        this.bg = new Background(0, 0);
+        this.bg = new Background(0,0);
     }
 
 
     public void jouer(double deltaTemps){
+<<<<<<< HEAD
          //tempsRef = System.nanoTime();
          //tempsRef = deltaTemps;
+=======
+
+>>>>>>> 999f98e1ca69b1ed15d6040d11e49bb7aad6dfe4
          this.collision();
          this.miseAJourEnvironnement(deltaTemps);
     }
@@ -72,18 +81,27 @@ public class Jeu {
     public void miseAJourEnvironnement(double deltaTemps){
         fantome.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
         bg.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
+<<<<<<< HEAD
+=======
+
+        Iterator it = listeObstacles.iterator();
+        while (it.hasNext()){
+            Obstacle obstacle = (Obstacle)it.next();
+            obstacle.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
+        }
+>>>>>>> 999f98e1ca69b1ed15d6040d11e49bb7aad6dfe4
 
         this.ajouterObstacles(deltaTemps);
         this.obstaclesPasses();
     }
 
     public void ajouterObstacles(double deltaTemps){
-        long tempsActuel = System.nanoTime();
 
-        if (deltaTemps >= 3) {
+        if (ajoutObstaclesTemps >= 3) {
             Obstacle obstacle = new Obstacle(lrgCanva, htrCanva);
             this.listeObstacles.add(obstacle);
-            tempsRef = tempsActuel;
+        } else {
+            ajoutObstaclesTemps += deltaTemps;
         }
     }
 

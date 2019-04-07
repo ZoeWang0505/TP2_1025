@@ -57,18 +57,20 @@ public class Obstacle extends Element{
         switch (this.type){
             case SIMPLE:
                 // ne bouge pas
+                this.setCoordX((int)(this.getCoordX() - vitesseX * deltaTime));
                 break;
             case SINUS:
                 if(currentRadian <= radianMax){
                     currentRadian ++;
                 }
-                int offset = (int)(Math.sin(currentRadian) * 25);
-                this.setCoordY(this.getCoordY() + offset);
+                int offsetY = (int)(Math.sin(currentRadian) * 25);
+                this.setCoordY(this.getCoordY() + offsetY);
 
                 break;
             case QUANTIQUE:
                 break;
         }
+
     }
 
 
