@@ -25,9 +25,8 @@ public class Fantome extends Element{
 
 
     @Override
-    public void bouger(int lrgCanva,int htrCanva, double vitesseX, double vitesseY, double detlaTime){
+    public void bouger(int lrgCanva,int htrCanva, double vitesseX, double vitesseY, double deltaTime){
         //TODO:
-        //this.setCoordY(offset);
     }
 
     @Override

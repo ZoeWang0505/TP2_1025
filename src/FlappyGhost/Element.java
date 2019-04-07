@@ -47,7 +47,7 @@ public class Element {
 
 
     public int getCoordY() {
-        return this. coordY;
+        return this.coordY;
     }
 
     public void setCoordY(int y){
