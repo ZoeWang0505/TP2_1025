@@ -8,17 +8,16 @@ public class Jeu {
     private Background bg;
     private int nbreObstaclesPasses = 0;
     private boolean augmenterVitesseX = false;
+    private boolean augmenterGravite = false;
     private int score = 0;
     private boolean collision = false;
     private boolean modeDebug = false;
     private long tempsRef;
     private int lrgCanva;
     private int htrCanva;
-    //private int htrBarreTache = 40;
-    //TODO:
-    //vitesse need to be modify
     private double vitesseX = 120;
     private double vitesseY = 0;
+    private double gravite = 500;
     private double ajoutObstaclesTemps = 0;
 
     public ArrayList<Obstacle> getListeObstacles(){
@@ -82,8 +81,23 @@ public class Jeu {
         if (this.augmenterVitesseX) {
             this.vitesseX += 15 * ((nbreObstaclesPasses + 1) % 2);
             this.augmenterVitesseX = false;
-            //System.out.println(vitesseX);
         }
+
+        // limiter la vitesse en y entre 300 et -300px/s
+        if (this.vitesseY > 300) {
+            this.vitesseY = 300;
+        } else if (this.vitesseY < -300) {
+            this.vitesseY = -300;
+        }
+
+        // la gravite augmente de 15px/s a chaque deux obstacles depasses
+        if (this.augmenterGravite) {
+            this.gravite += 15 * ((nbreObstaclesPasses + 1) % 2);
+            this.augmenterGravite = false;
+        }
+
+        // mettre a jour la vitesse en y
+        this.vitesseY += deltaTemps * gravite;
         fantome.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
         bg.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
 
@@ -113,13 +127,27 @@ public class Jeu {
         Iterator<Obstacle> i = this.listeObstacles.iterator();
         while (i.hasNext()) {
             Obstacle obs = i.next();
+            // a chaque obstacles passe
             if (!obs.getPasse() && obs.getPointPasse() < this.fantome.getPointPasse()) {
                 obs.setPasse(true);
-                this.score += 5;
-                this.nbreObstaclesPasses++;
+                this.score += 5;               // on augmente le score de 5 points
+                this.nbreObstaclesPasses++;    //
                 this.augmenterVitesseX = true;
+                this.augmenterGravite = true;
             }
         }
+    }
+
+    public void evenement(String evenement){
+        switch (evenement){
+            // un saut change instantanement la vitesse en y du fantome a 300px/s vers le haut
+            case "sauter":
+                this.vitesseY = -300;
+                break;
+            default:
+                break;
+        }
+
     }
 
 }

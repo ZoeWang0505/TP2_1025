@@ -21,6 +21,10 @@ public class Element {
         return vitesseY;
     }
 
+    public void setVitesseY(double vitesse) {
+        this.vitesseY = vitesse;
+    }
+
     public void setImage(Image img){
         this.elementImage = img;
     }

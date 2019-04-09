@@ -42,4 +42,15 @@ public class Controleur {
         timer.start(); // demarrer le timer
         
     }
+
+    public void evenement(String evenement) {
+        switch (evenement){
+            case "sauter":
+                this.jeu.evenement("sauter");
+                break;
+            default:
+                break;
+        }
+
+    }
 }

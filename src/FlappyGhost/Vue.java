@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -80,6 +81,13 @@ public class Vue extends Application {
         // Lorsqu’on clique ailleurs sur la scène, le focus retourne sur le canvas */
         scene.setOnMouseClicked((event) -> {
             canvas.requestFocus();
+        });
+
+        // si l'utilisateur pese sur la barre d'espace, avertir le controleur
+        scene.setOnKeyPressed((value) -> {
+            if (value.getCode() == KeyCode.SPACE) {
+                this.controleur.evenement("sauter");
+            }
         });
     }
 
