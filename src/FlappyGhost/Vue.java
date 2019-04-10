@@ -29,7 +29,7 @@ public class Vue extends Application {
     private String strResume = "Resume";
 
     Text score;
-
+    Canvas canvas;
 
     public int getLrgFenetre() {
         return lrgFenetre;
@@ -55,7 +55,7 @@ public class Vue extends Application {
         VBox root = new VBox(8);
         Scene scene = new Scene(root, lrgFenetre, htrFenetre);
 
-        Canvas canvas = new Canvas(lrgFenetre, htrFenetre - htrBarreTache);
+        canvas = new Canvas(lrgFenetre, htrFenetre - htrBarreTache);
 
         HBox menuBoutons = new HBox(10);
         root.getChildren().add(canvas);
@@ -78,17 +78,7 @@ public class Vue extends Application {
         // Création du contrôleur
         controleur = new Controleur(this);
         controleur.start();
-
-        // Après l’exécution de la fonction, le focus va automatiquement au canvas
-        Platform.runLater(() -> {
-            canvas.requestFocus();
-        });
-
-        // Lorsqu’on clique ailleurs sur la scène, le focus retourne sur le canvas */
-        scene.setOnMouseClicked((event) -> {
-            canvas.requestFocus();
-        });
-
+        canvas.requestFocus();
 
         // si l'utilisateur pese sur la barre d'espace, avertir le controleur
         scene.setOnKeyPressed((value) -> {
@@ -100,19 +90,28 @@ public class Vue extends Application {
                     primaryStage.close();
                     break;
             }
-
+            this.setFocus();
         });
 
         pause.setOnAction((event)-> {
             this.controleur.evenement(Jeu.actions.PAUSE);
             String str = pause.getText() == strPause ? strResume : strPause;
             pause.setText(str);
+            this.setFocus();
         });
 
         modeDebug.setOnAction((event)-> {
             this.modeDebug = modeDebug.isSelected();
+            this.setFocus();
         });
+    }
 
+    private void setFocus(){
+        // Après l’exécution de la fonction, le focus va automatiquement au canvas
+        // Lorsqu’on clique ailleurs sur la scène, le focus retourne sur le canvas
+        Platform.runLater(() -> {
+            canvas.requestFocus();
+        });
     }
 
     public void miseAJour(Jeu jeu) {
