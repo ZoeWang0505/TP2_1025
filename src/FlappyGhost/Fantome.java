@@ -27,12 +27,13 @@ public class Fantome extends Element{
     }
     public void setVitesseY(double vitesseY){
         // limiter la vitesse en y entre 300 et -300px/s
-        if (this.vitesseY > 300) {
+        if (vitesseY > 300) {
             this.vitesseY = 300;
-        } else if (this.getVitesseY() < -300) {
+        } else if (vitesseY < -300) {
             this.vitesseY = -300;
+        } else {
+            this.vitesseY = vitesseY;
         }
-        this.vitesseY = vitesseY;
     }
 
     public Fantome(int x, int y){
@@ -50,7 +51,7 @@ public class Fantome extends Element{
         if( offset < this.getRayon()) {
 
             setVitesseY(-this.getVitesseY() + deltaTemps * this.gravite);
-            
+
         } else if (offset > htrCanva - this.getRayon()){
 
             setVitesseY(-this.getVitesseY() + deltaTemps * this.gravite);
