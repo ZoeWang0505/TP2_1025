@@ -4,26 +4,12 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Element {
-    private double vitesseX;
-    private double vitesseY;
     private int coordX;
     private int coordY;
     private int rayon;
     private Color couleur;
-    private boolean modeDebug = false;
     private Image elementImage;
 
-
-    public double getVitesseX() {
-        return vitesseX;
-    }
-    public double getVitesseY(){
-        return vitesseY;
-    }
-
-    public void setVitesseY(double vitesse) {
-        this.vitesseY = vitesse;
-    }
 
     public void setImage(Image img){
         this.elementImage = img;
@@ -68,17 +54,6 @@ public class Element {
     }
 
 
-
-    public boolean getModeDebug(){
-        return modeDebug;
-    }
-
-    public void setmodeDebug(boolean debug){
-        modeDebug = debug;
-        //TODO:
-        //update view
-    }
-
     public Element(int x, int y, int rayon, Color couleur){
         this.coordX = x;
         this.coordY = y;
@@ -100,7 +75,6 @@ public class Element {
     }
 
     public void bouger(int lrgCanva, int htrCanva, double vitesseX, double vitesseY, double deltaTime){
-        //TODO:
     }
 
 }

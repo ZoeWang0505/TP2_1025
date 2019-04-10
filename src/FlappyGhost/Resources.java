@@ -1,6 +1,5 @@
 package FlappyGhost;
 
-import com.sun.javafx.binding.StringFormatter;
 import javafx.scene.image.Image;
 
 import java.text.MessageFormat;

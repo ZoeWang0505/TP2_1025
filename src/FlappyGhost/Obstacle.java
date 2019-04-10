@@ -39,10 +39,6 @@ public class Obstacle extends Element{
         this.passe = passe;
     }
 
-    public boolean getCollision(){
-        return collision;
-    }
-
     public void setCollision(boolean collision){
         this.collision = collision;
         Color coleur = this.collision ? Color.RED : Color.YELLOW;
@@ -57,7 +53,6 @@ public class Obstacle extends Element{
 
     @Override
     public void bouger(int lrgCanva, int htrCanva, double vitesseX, double vitesseY, double deltaTemps){
-        //TODO:
         switch (this.type){
             case SIMPLE:
                 // ne bouge pas

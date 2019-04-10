@@ -1,8 +1,11 @@
 package FlappyGhost;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Jeu {
+    public enum actions {SAUTER, PAUSE};
+
     private ArrayList<Obstacle> listeObstacles;
     private Fantome fantome;
     private Background bg;
@@ -11,14 +14,13 @@ public class Jeu {
     private boolean augmenterGravite = false;
     private int score = 0;
     private boolean collision = false;
-    private boolean modeDebug = false;
-    private long tempsRef;
     private int lrgCanva;
     private int htrCanva;
     private double vitesseX = 120;
     private double vitesseY = 0;
     private double gravite = 500;
     private double ajoutObstaclesTemps = 0;
+    private Boolean pause = false;
 
     public ArrayList<Obstacle> getListeObstacles(){
         return listeObstacles;
@@ -53,7 +55,9 @@ public class Jeu {
 
     public void jouer(double deltaTemps){
          this.collision();
-         this.miseAJourEnvironnement(deltaTemps);
+         if(!this.pause) {
+             this.miseAJourEnvironnement(deltaTemps);
+         }
     }
 
     public void collision(){
@@ -65,7 +69,7 @@ public class Jeu {
             double distCentres = Math.sqrt((distX * distX) + (distY * distY));
             double sommeRayons = this.fantome.getRayon() + obs.getRayon();
 
-            if (distCentres < sommeRayons){
+            if (distCentres < sommeRayons ){
                 this.collision = true;
                 obs.setCollision(true);
             }
@@ -138,11 +142,14 @@ public class Jeu {
         }
     }
 
-    public void evenement(String evenement){
+    public void evenement(actions evenement){
         switch (evenement){
             // un saut change instantanement la vitesse en y du fantome a 300px/s vers le haut
-            case "sauter":
+            case SAUTER:
                 this.vitesseY = -300;
+                break;
+            case PAUSE:
+                this.pause = this.pause == true ? false : true;
                 break;
             default:
                 break;

@@ -2,6 +2,7 @@ package FlappyGhost;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -23,9 +24,7 @@ public class Vue extends Application {
     private int htrFenetre = 440;
     private int htrBarreTache = 40;
     private GraphicsContext context;
-    int xFantome;
-    int yFantome;
-    long lastTime = 0;
+    private Boolean modeDebug = false;
 
     Text score;
 
@@ -40,6 +39,10 @@ public class Vue extends Application {
 
     public int getHtrBarreTache() {
         return htrBarreTache;
+    }
+
+    public boolean getModeDebug(){
+        return this.modeDebug;
     }
 
 
@@ -58,6 +61,7 @@ public class Vue extends Application {
         Button pause = new Button("Pause");
         CheckBox modeDebug = new CheckBox("Mode debug");
         score = new Text("Score: 0");
+
         menuBoutons.getChildren().add(pause);
         menuBoutons.getChildren().add(modeDebug);
         menuBoutons.getChildren().add(score);
@@ -83,12 +87,22 @@ public class Vue extends Application {
             canvas.requestFocus();
         });
 
+
         // si l'utilisateur pese sur la barre d'espace, avertir le controleur
         scene.setOnKeyPressed((value) -> {
             if (value.getCode() == KeyCode.SPACE) {
-                this.controleur.evenement("sauter");
+                this.controleur.evenement(Jeu.actions.SAUTER);
             }
         });
+
+        pause.setOnAction((event)-> {
+            this.controleur.evenement(Jeu.actions.PAUSE);
+        });
+
+        modeDebug.setOnAction((event)-> {
+            this.modeDebug = modeDebug.isSelected();
+        });
+
     }
 
     public void miseAJour(Jeu jeu) {
@@ -103,19 +117,31 @@ public class Vue extends Application {
 
         // afficher le fantome
         Fantome fantome = jeu.getFantome();
-        context.drawImage(fantome.getImage(), fantome.getCoordX() - fantome.getRayon(),
-                fantome.getCoordY() - fantome.getRayon());
+        if(!modeDebug) {
+            context.drawImage(fantome.getImage(), fantome.getCoordX() - fantome.getRayon(),
+                    fantome.getCoordY() - fantome.getRayon());
+        } else {
+            context.setFill(fantome.getCouleur());
+            context.fillOval(fantome.getCoordX()- fantome.getRayon(),
+                    fantome.getCoordY()- fantome.getRayon(),
+                    fantome.getRayon() * 2, fantome.getRayon() * 2);
+        }
 
         // afficher les obstacles
         Iterator it = jeu.getListeObstacles().iterator();
         while(it.hasNext()){
-            Obstacle obstacle = (Obstacle)it.next();
-            context.drawImage(obstacle.getImage(),
-                    obstacle.getCoordX() - obstacle.getRayon(),obstacle.getCoordY() - obstacle.getRayon(),
-                    obstacle.getRayon(), obstacle.getRayon());
+            Obstacle obstacle = (Obstacle) it.next();
+            if(!modeDebug) {
+                context.drawImage(obstacle.getImage(),
+                        obstacle.getCoordX() - obstacle.getRayon(), obstacle.getCoordY() - obstacle.getRayon(),
+                        obstacle.getRayon() * 2, obstacle.getRayon() * 2);
+            } else {
+                context.setFill(obstacle.getCouleur());
+                context.fillOval(obstacle.getCoordX()- obstacle.getRayon(), obstacle.getCoordY() - obstacle.getRayon(),
+                        obstacle.getRayon() * 2, obstacle.getRayon() * 2);
+            }
         }
 
-        //TODO: update attributes depending on input from Controller
     }
 }
 

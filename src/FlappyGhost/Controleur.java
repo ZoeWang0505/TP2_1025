@@ -33,7 +33,9 @@ public class Controleur {
                 jeu.jouer(deltaTemps);
                 //if collision is true, die
                 if(jeu.getCollision()){
-                //    jeuInitialise();
+                    if(!vue.getModeDebug()) {
+                        jeuInitialise();
+                    }
                 }
                 vue.miseAJour(jeu);
                 lastTime = now;
@@ -43,14 +45,7 @@ public class Controleur {
         
     }
 
-    public void evenement(String evenement) {
-        switch (evenement){
-            case "sauter":
-                this.jeu.evenement("sauter");
-                break;
-            default:
-                break;
-        }
-
+    public void evenement(Jeu.actions action ) {
+                this.jeu.evenement(action);
     }
 }

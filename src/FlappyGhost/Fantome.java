@@ -1,6 +1,5 @@
 package FlappyGhost;
 
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Fantome extends Element{
@@ -12,7 +11,14 @@ public class Fantome extends Element{
 
     @Override
     public void bouger(int lrgCanva,int htrCanva, double vitesseX, double vitesseY, double deltaTemps){
-        this.setCoordY((int)(this.getCoordY() + vitesseY * deltaTemps));
+        int offset = (int)(this.getCoordY() + vitesseY * deltaTemps);
+        if( offset < this.getRayon()) {
+            this.setCoordY(this.getRayon());
+        } else if (offset > htrCanva - this.getRayon()){
+            this.setCoordY(htrCanva - this.getRayon());
+        } else {
+            this.setCoordY((int) (this.getCoordY() + vitesseY * deltaTemps));
+        }
     }
 
     @Override
