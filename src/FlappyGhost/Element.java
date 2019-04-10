@@ -74,7 +74,7 @@ public class Element {
         return 0;
     }
 
-    public void bouger(int lrgCanva, int htrCanva, double vitesseX, double vitesseY, double deltaTime){
+    public void bouger(int lrgCanva, int htrCanva, double vitesseX, double deltaTime){
     }
 
 }

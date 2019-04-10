@@ -16,9 +16,7 @@ public class Jeu {
     private boolean collision = false;
     private int lrgCanva;
     private int htrCanva;
-    private double vitesseX = 120;
-    private double vitesseY = 0;
-    private double gravite = 500;
+
     private double ajoutObstaclesTemps = 0;
     private Boolean pause = false;
 
@@ -83,32 +81,24 @@ public class Jeu {
     public void miseAJourEnvironnement(double deltaTemps){
         // la vitesse du fantome augmente de 15px/s a chaque deux obstacles depasses
         if (this.augmenterVitesseX) {
-            this.vitesseX += 15 * ((nbreObstaclesPasses + 1) % 2);
+            fantome.setVitesseX(fantome.getVitesseX() + 15 * ((nbreObstaclesPasses + 1) % 2));
             this.augmenterVitesseX = false;
-        }
-
-        // limiter la vitesse en y entre 300 et -300px/s
-        if (this.vitesseY > 300) {
-            this.vitesseY = 300;
-        } else if (this.vitesseY < -300) {
-            this.vitesseY = -300;
         }
 
         // la gravite augmente de 15px/s a chaque deux obstacles depasses
         if (this.augmenterGravite) {
-            this.gravite += 15 * ((nbreObstaclesPasses + 1) % 2);
+            fantome.setGravite(fantome.getGravite() + 15 * ((nbreObstaclesPasses + 1) % 2));
             this.augmenterGravite = false;
         }
 
         // mettre a jour la vitesse en y
-        this.vitesseY += deltaTemps * gravite;
-        fantome.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
-        bg.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
+        fantome.bouger(this.lrgCanva, this.htrCanva, fantome.getVitesseX(), deltaTemps);
+        bg.bouger(this.lrgCanva, this.htrCanva, fantome.getVitesseX(), deltaTemps);
 
         Iterator it = listeObstacles.iterator();
         while (it.hasNext()){
             Obstacle obstacle = (Obstacle)it.next();
-            obstacle.bouger(this.lrgCanva, this.htrCanva, this.vitesseX, this.vitesseY, deltaTemps);
+            obstacle.bouger(this.lrgCanva, this.htrCanva, fantome.getVitesseX(), deltaTemps);
         }
 
         this.ajouterObstacles(deltaTemps);
@@ -146,7 +136,7 @@ public class Jeu {
         switch (evenement){
             // un saut change instantanement la vitesse en y du fantome a 300px/s vers le haut
             case SAUTER:
-                this.vitesseY = -300;
+                this.fantome.setVitesseY(-300);
                 break;
             case PAUSE:
                 this.pause = this.pause == true ? false : true;

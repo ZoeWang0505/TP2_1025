@@ -8,7 +8,7 @@ public class Background extends Element {
     }
 
     @Override
-    public void bouger(int lrgCanva, int htrCanva, double vitesseX, double vitesseY, double deltaTime){
+    public void bouger(int lrgCanva, int htrCanva, double vitesseX, double deltaTime){
         int offsetX = this.getCoordX() - (int)(vitesseX * deltaTime);
         if(offsetX + lrgCanva > 0){
             this.setCoordX(offsetX);

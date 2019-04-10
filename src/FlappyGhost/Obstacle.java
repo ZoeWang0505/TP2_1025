@@ -52,7 +52,7 @@ public class Obstacle extends Element{
     }
 
     @Override
-    public void bouger(int lrgCanva, int htrCanva, double vitesseX, double vitesseY, double deltaTemps){
+    public void bouger(int lrgCanva, int htrCanva, double vitesseX, double deltaTemps){
         switch (this.type){
             case SIMPLE:
                 // ne bouge pas
