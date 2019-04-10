@@ -23,7 +23,7 @@ public class Obstacle extends Element{
         int rayon = (int)(Math.random() * range) + rayonMin;
         this.setRayon(rayon);
 
-        this.setCoordY((int)(Math.random() * htrCanva));
+        this.setCoordY((int)(this.getRayon() + (Math.random() * (htrCanva - (2 * this.getRayon())))));
         this.setCoordX(fantome.getCoordX() + lrgCanva/2 + this.getRayon());
 
         this.type = getRandomType();
