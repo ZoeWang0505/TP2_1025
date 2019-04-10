@@ -10,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -25,6 +25,8 @@ public class Vue extends Application {
     private int htrBarreTache = 40;
     private GraphicsContext context;
     private Boolean modeDebug = false;
+    private String strPause = "Pause";
+    private String strResume = "Resume";
 
     Text score;
 
@@ -58,7 +60,7 @@ public class Vue extends Application {
         HBox menuBoutons = new HBox(10);
         root.getChildren().add(canvas);
         root.getChildren().add(menuBoutons);
-        Button pause = new Button("Pause");
+        Button pause = new Button(strPause);
         CheckBox modeDebug = new CheckBox("Mode debug");
         score = new Text("Score: 0");
 
@@ -90,13 +92,21 @@ public class Vue extends Application {
 
         // si l'utilisateur pese sur la barre d'espace, avertir le controleur
         scene.setOnKeyPressed((value) -> {
-            if (value.getCode() == KeyCode.SPACE) {
-                this.controleur.evenement(Jeu.actions.SAUTER);
+            switch (value.getCode()){
+                case SPACE:
+                    this.controleur.evenement(Jeu.actions.SAUTER);
+                    break;
+                case ESCAPE:
+                    primaryStage.close();
+                    break;
             }
+
         });
 
         pause.setOnAction((event)-> {
             this.controleur.evenement(Jeu.actions.PAUSE);
+            String str = pause.getText() == strPause ? strResume : strPause;
+            pause.setText(str);
         });
 
         modeDebug.setOnAction((event)-> {
