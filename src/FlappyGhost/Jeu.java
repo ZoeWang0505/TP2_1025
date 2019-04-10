@@ -103,6 +103,7 @@ public class Jeu {
 
         this.ajouterObstacles(deltaTemps);
         this.obstaclesPasses();
+        this.removeObstacles();
     }
 
     public void ajouterObstacles(double deltaTemps){
@@ -117,10 +118,19 @@ public class Jeu {
         }
     }
 
+    public void removeObstacles() {
+        for(int i = 0; i < this.listeObstacles.size(); i ++ ){
+            Obstacle obs = this.listeObstacles.get(i);
+            if(obs.getPasse() && obs.getCoordX() < - obs.getRayon()){
+                this.listeObstacles.remove(obs);
+            }
+        }
+    }
+
     public void obstaclesPasses(){
-        Iterator<Obstacle> i = this.listeObstacles.iterator();
-        while (i.hasNext()) {
-            Obstacle obs = i.next();
+        Iterator<Obstacle> it = this.listeObstacles.iterator();
+        while (it.hasNext()) {
+            Obstacle obs = it.next();
             // a chaque obstacles passe
             if (!obs.getPasse() && obs.getPointPasse() < this.fantome.getPointPasse()) {
                 obs.setPasse(true);
