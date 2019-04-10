@@ -4,33 +4,54 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Jeu {
-    public enum actions {SAUTER, PAUSE};
+    public enum actions {SAUTER, PAUSE};            // les actions/evenements possibles dans le jeu
+    private ArrayList<Obstacle> listeObstacles;     // la liste des obstacles dans la fenetre
+    private Fantome fantome;                        // le fantome dans le jeu
+    private Background bg;                          // l'arriere-plan dans le jeu
+    private int nbreObstaclesPasses = 0;            // le nombre total d'obstacles passes par le fantome
+    private boolean augmenterVitesseX = false;      // la vitesse en x du jeu
+    private boolean augmenterGravite = false;       // la gravite dans le jeu
+    private int score = 0;                          // le score du joueur
+    private boolean collision = false;              // indiqie si le fantome a eu une collision avec un obstacle
+    private int lrgCanva;                           // la largeur du canva d'affichage
+    private int htrCanva;                           // la hauteur du canva d'affichage
+    private double ajoutObstaclesTemps = 0;         // temps depuis le dernier ajout d'un obstacle
+    private Boolean pause = false;                  // indique si le jeu est en pause
 
-    private ArrayList<Obstacle> listeObstacles;
-    private Fantome fantome;
-    private Background bg;
-    private int nbreObstaclesPasses = 0;
-    private boolean augmenterVitesseX = false;
-    private boolean augmenterGravite = false;
-    private int score = 0;
-    private boolean collision = false;
-    private int lrgCanva;
-    private int htrCanva;
-
-    private double ajoutObstaclesTemps = 0;
-    private Boolean pause = false;
-
+    /**
+     * Getter pour la liste d'obstacles actuels dans la fenetre
+     * @return liste d'obstacles actuels dans la fenetre
+     */
     public ArrayList<Obstacle> getListeObstacles(){
         return listeObstacles;
     }
 
-
+    /**
+     * Getter pour le fantome dans le jeu
+     * @return le fantome dans le jeu
+     */
     public Fantome getFantome() {
         return fantome;
     }
 
+    /**
+     * Getter pour l'arriere-plan du jeu
+     * @return l'arriere-plan du jeu
+     */
     public Background getBackgroud() {
         return bg;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public boolean getCollision(){
+        return this.collision;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
     }
 
     public Jeu(int lrgFenetre, int htrFenetre) {
@@ -39,17 +60,11 @@ public class Jeu {
         this.initialiser();
     }
 
-    public int getScore() {
-        return score;
-    }
-
-
     public void initialiser(){
         this.fantome = new Fantome(this.lrgCanva/2,htrCanva/2);
         this.listeObstacles = new ArrayList<>();
         this.bg = new Background(0,0);
     }
-
 
     public void jouer(double deltaTemps){
          this.collision();
@@ -72,10 +87,6 @@ public class Jeu {
                 obs.setCollision(true);
             }
         }
-    }
-
-    public boolean getCollision(){
-        return this.collision;
     }
 
     public void miseAJourEnvironnement(double deltaTemps){
@@ -103,7 +114,7 @@ public class Jeu {
 
         this.ajouterObstacles(deltaTemps);
         this.obstaclesPasses();
-        this.removeObstacles();
+        this.enleverObstacles();
     }
 
     public void ajouterObstacles(double deltaTemps){
@@ -118,7 +129,7 @@ public class Jeu {
         }
     }
 
-    public void removeObstacles() {
+    public void enleverObstacles() {
         for(int i = 0; i < this.listeObstacles.size(); i ++ ){
             Obstacle obs = this.listeObstacles.get(i);
             if(obs.getPasse() && obs.getCoordX() < - obs.getRayon()){
@@ -156,6 +167,5 @@ public class Jeu {
         }
 
     }
-
 }
 

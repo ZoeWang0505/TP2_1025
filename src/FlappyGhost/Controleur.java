@@ -55,6 +55,8 @@ public class Controleur {
                 if(jeu.getCollision()){
                     if(!vue.getModeDebug()) { // sauf si le mode debug est enclenche
                         jeuInitialise();
+                    } else {
+                        jeu.setCollision(false);
                     }
                 }
                 vue.miseAJour(jeu); // met a jour la vue en fonction du modele
