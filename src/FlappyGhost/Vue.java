@@ -26,15 +26,15 @@ import javafx.stage.Stage;
 import java.util.Iterator;
 
 public class Vue extends Application {
-    private Controleur controleur;  // Contrôleur de l'application
-    private int lrgFenetre = 640;
-    private int htrFenetre = 440;
-    private int htrBarreTache = 40;
-    private GraphicsContext context;
-    private Boolean modeDebug = false;
-    private String strPause = "Pause";
-    private String strResume = "Resume";
-    Text score;
+    private Controleur controleur;       // Contrôleur de l'application
+    private int lrgFenetre = 640;        // largeur de la fenetre
+    private int htrFenetre = 440;        // hauteur de la fenetre
+    private int htrBarreTache = 40;      // hauteur de la barre de tache
+    private GraphicsContext context;     // context graphique du canva
+    private Boolean modeDebug = false;   // indique si le mode debug est active
+    private String strPause = "Pause";   // affichage sur le bouton pause
+    private String strResume = "Resume"; // affichage sur le bouton pause
+    Text score;                          // score du joueur a afficher
     Canvas canvas;
 
     /**
@@ -45,23 +45,39 @@ public class Vue extends Application {
         return lrgFenetre;
     }
 
+    /**
+     * Getter pour la hauteur de la fenetre
+     * @return hauteur de la fenetre
+     */
     public int getHtrFenetre() {
         return htrFenetre;
     }
 
+    /**
+     * Getter pour la hauteur de la barre de tache
+     * @return hauteur de la barre de tache
+     */
     public int getHtrBarreTache() {
         return htrBarreTache;
     }
 
+    /**
+     * Getter pour l'etat du mode debug
+     * @return etat du mode debug
+     */
     public boolean getModeDebug(){
         return this.modeDebug;
     }
 
-
+    /**
+     * Fonction principale
+     * @param args arguments entres en ligne de commande
+     */
     public static void main(String[] args) {Vue.launch(args);}
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        // creation de la vue initiale du jeu
         VBox root = new VBox(8);
         Scene scene = new Scene(root, lrgFenetre, htrFenetre);
 
@@ -90,6 +106,7 @@ public class Vue extends Application {
         controleur.start();
         canvas.requestFocus();
 
+
         // si l'utilisateur pese sur la barre d'espace, avertir le controleur
         scene.setOnKeyPressed((value) -> {
             switch (value.getCode()){
@@ -103,6 +120,7 @@ public class Vue extends Application {
             this.setFocus();
         });
 
+        // si le jour clique sur le bouton pause, mettre le jeu sur pause et changer le texte du bouton a resume
         pause.setOnAction((event)-> {
             this.controleur.evenement(Jeu.actions.PAUSE);
             String str = pause.getText() == strPause ? strResume : strPause;
@@ -110,6 +128,7 @@ public class Vue extends Application {
             this.setFocus();
         });
 
+        // si le joueur clique sur la case du mode debug, activer le mode debug
         modeDebug.setOnAction((event)-> {
             this.modeDebug = modeDebug.isSelected();
             this.setFocus();
@@ -124,17 +143,22 @@ public class Vue extends Application {
         });
     }
 
+    /**
+     * Mets a jour la vue du jeu selon les changements apportes au modele
+     * @param jeu modele
+     */
     public void miseAJour(Jeu jeu) {
-        //Afficher Background
+        // mettre a jour l'arriere-plan
         Background bg = jeu.getBackgroud();
         context.clearRect(0, 0, lrgFenetre, htrFenetre - htrBarreTache);
         Image image = bg.getImage();
         context.drawImage(image, bg.getCoordX(),0, image.getWidth(), image.getHeight() );
         context.drawImage(image, (bg.getCoordX() + lrgFenetre), 0,image.getWidth(), image.getHeight());
 
+        // mettre a jour le score dujoueur
         score.setText("Score: " + jeu.getScore());
 
-        // afficher le fantome
+        // mettre a jour le fantome
         Fantome fantome = jeu.getFantome();
         if(!modeDebug) {
             context.drawImage(fantome.getImage(), fantome.getCoordX() - fantome.getRayon(),
@@ -146,17 +170,19 @@ public class Vue extends Application {
                     fantome.getRayon() * 2, fantome.getRayon() * 2);
         }
 
-        // afficher les obstacles
+        // mettre a jour les obstacles
         Iterator it = jeu.getListeObstacles().iterator();
         while(it.hasNext()){
             Obstacle obstacle = (Obstacle) it.next();
             if(!modeDebug) {
                 context.drawImage(obstacle.getImage(),
-                        obstacle.getCoordX() - obstacle.getRayon(), obstacle.getCoordY() - obstacle.getRayon(),
+                        obstacle.getCoordX() - obstacle.getRayon(),
+                        obstacle.getCoordY() - obstacle.getRayon(),
                         obstacle.getRayon() * 2, obstacle.getRayon() * 2);
             } else {
                 context.setFill(obstacle.getCouleur());
-                context.fillOval(obstacle.getCoordX()- obstacle.getRayon(), obstacle.getCoordY() - obstacle.getRayon(),
+                context.fillOval(obstacle.getCoordX()- obstacle.getRayon(),
+                        obstacle.getCoordY() - obstacle.getRayon(),
                         obstacle.getRayon() * 2, obstacle.getRayon() * 2);
             }
         }
