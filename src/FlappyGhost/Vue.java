@@ -1,8 +1,17 @@
-package FlappyGhost;
+/**
+ * Auteurs:     David Raby-Pepin, p0918119
+ *              Zoe Wang, p20111352
+ *
+ * Date:        22/04/2019
+ *
+ * Description: Ce programme est un jeu en interface graphique avec la librairie JavaFX.
+ *              Le joueur incarne un fantôme qui se promène dans un niveau rempli d’obstacles. Le seul objectif
+ *              est d’avancer le plus longtemps possible dans le niveau sans toucher d’obstacle.
+ */
 
+package FlappyGhost;
 import javafx.application.Application;
 import javafx.application.Platform;
-
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -10,12 +19,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
-
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.util.Iterator;
 
 public class Vue extends Application {
@@ -27,10 +34,13 @@ public class Vue extends Application {
     private Boolean modeDebug = false;
     private String strPause = "Pause";
     private String strResume = "Resume";
-
     Text score;
     Canvas canvas;
 
+    /**
+     * Getter pour la largeur de la fenetre
+     * @return largeur de la fenetre
+     */
     public int getLrgFenetre() {
         return lrgFenetre;
     }

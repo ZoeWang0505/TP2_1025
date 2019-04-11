@@ -2,11 +2,23 @@ package FlappyGhost;
 
 public class Background extends Element {
 
+    /**
+     * Constructeur
+     * @param x position en x sur le canva
+     * @param y position en y sur le canva
+     */
     public Background(int x, int y){
         super(x,y);
         this.setImage(Resources.getBg());
     }
 
+    /**
+     * Fonction qui met a jour les coordonnees x et y de l'arriere-plan selon la vitesse en x
+     * @param lrgCanva largeur du canva
+     * @param htrCanva hauteur du canva
+     * @param vitesseX vitesse en x
+     * @param deltaTime avancement de temps du jeu
+     */
     @Override
     public void bouger(int lrgCanva, int htrCanva, double vitesseX, double deltaTime){
         int offsetX = this.getCoordX() - (int)(vitesseX * deltaTime);
