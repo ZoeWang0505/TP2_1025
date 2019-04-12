@@ -7,7 +7,7 @@ public class Jeu {
     public enum actions {SAUTER, PAUSE};            // les actions/evenements possibles dans le jeu
     private ArrayList<Obstacle> listeObstacles;     // la liste des obstacles dans la fenetre
     private Fantome fantome;                        // le fantome dans le jeu
-    private Background bg;                          // l'arriere-plan dans le jeu
+    private ArrierePlan arrierePlan;                // l'arriere-plan dans le jeu
     private int nbreObstaclesPasses = 0;            // le nombre total d'obstacles passes par le fantome
     private boolean augmenterVitesseX = false;      // la vitesse en x du jeu
     private boolean augmenterGravite = false;       // la gravite dans le jeu
@@ -38,8 +38,8 @@ public class Jeu {
      * Getter pour l'arriere-plan du jeu
      * @return l'arriere-plan du jeu
      */
-    public Background getBackgroud() {
-        return bg;
+    public ArrierePlan getArrierePlan() {
+        return arrierePlan;
     }
 
     /**
@@ -83,7 +83,7 @@ public class Jeu {
     public void initialiser(){
         this.fantome = new Fantome(this.lrgCanva/2,htrCanva/2);
         this.listeObstacles = new ArrayList<>();
-        this.bg = new Background(0,0);
+        this.arrierePlan = new ArrierePlan(0,0);
     }
 
     /**
@@ -135,7 +135,7 @@ public class Jeu {
 
         // mettre a jour la vitesse et les coordonnees de tous les elements
         fantome.bouger(this.lrgCanva, this.htrCanva, fantome.getVitesseX(), deltaTemps);
-        bg.bouger(this.lrgCanva, this.htrCanva, fantome.getVitesseX(), deltaTemps);
+        arrierePlan.bouger(this.lrgCanva, this.htrCanva, fantome.getVitesseX(), deltaTemps);
 
         Iterator it = listeObstacles.iterator();
         while (it.hasNext()){

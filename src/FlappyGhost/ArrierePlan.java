@@ -1,15 +1,15 @@
 package FlappyGhost;
 
-public class Background extends Element {
+public class ArrierePlan extends Element {
 
     /**
      * Constructeur
      * @param x position en x sur le canva
      * @param y position en y sur le canva
      */
-    public Background(int x, int y){
+    public ArrierePlan(int x, int y){
         super(x,y);
-        this.setImage(Resources.getBg());
+        this.setImage(Ressources.getArrierePlan());
     }
 
     /**

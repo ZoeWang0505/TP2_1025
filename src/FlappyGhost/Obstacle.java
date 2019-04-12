@@ -7,13 +7,13 @@ public class Obstacle extends Element{
     private obstacleType type;                            // type d'obstacle
     private int rayonMax = 45;                            // rayon maximal d'un obstacle
     private int rayonMin = 10;                            // rayon minimal d'un obstacle
-    private int currentRadian = 0;                        // angle actuel (pour le sinus)
-    private int radianMax = 360;                          // angle maximal (pour le sinus)
+    private int angleActuel = 0;                          // angle actuel (pour le sinus)
+    private int angleMax = 360;                           // angle maximal (pour le sinus)
     private boolean passe = false;                        // indique si l'obstacle est passe
     private boolean collision = false;                    // indique si l'obstacle est en collision avec le fantome
     private double tempsOscillement = 0;                  // temps d'oscillement d'obstacle sinus
     private double tempsTeleportation = 0;                // temps de teleportation pour les obstacles quantiques
-    private int rangeTeleportation = 30;                  // distance limite de teleportation
+    private int porteeTeleportation = 30;                  // distance limite de teleportation
 
     /**
      * Constructeur
@@ -23,10 +23,10 @@ public class Obstacle extends Element{
      */
     public Obstacle(int lrgCanva, int htrCanva, Fantome fantome){
         super(Color.YELLOW); // on represente les obstacles en jaune lors du mode debug
-        int range = rayonMax - rayonMin + 1;
-        int rayon = (int)(Math.random() * range) + rayonMin; // le rayon est definit de facon aleatoire
+        int variationRayon = rayonMax - rayonMin + 1;
+        int rayon = (int)(Math.random() * variationRayon) + rayonMin; // le rayon est definit de facon aleatoire
         this.setRayon(rayon);
-        this.type = getRandomType(); // on choisit le type de l'obstacle de facon aleatoire
+        this.type = getTypeAleatoire(); // on choisit le type de l'obstacle de facon aleatoire
 
         // si l'obstacle est sinus, on s'assure qu'il ne sorte pas du canva en oscillant
         if (this.type == obstacleType.SINUS) {
@@ -93,10 +93,10 @@ public class Obstacle extends Element{
             case SINUS:
                 // mettre a jour l'oscillement a chaque 0.1 seconde
                 if (tempsOscillement >= 0.1) {
-                    if (currentRadian <= radianMax) {
-                        currentRadian++;
+                    if (angleActuel <= angleMax) {
+                        angleActuel++;
                     }
-                    int offsetY = (int) (Math.sin(currentRadian) * 25);
+                    int offsetY = (int) (Math.sin(angleActuel) * 25);
                     this.setCoordY(this.getCoordY() + offsetY);
                     tempsOscillement = 0;
                 } else {
@@ -108,8 +108,8 @@ public class Obstacle extends Element{
                 // teleporter a cahque 0.2 secondes
                 if (tempsTeleportation >= 0.2) {
                     double signeAleatoire = Math.pow(-1, Math.round(Math.random()));
-                    int offsetX = (int) (Math.random() * rangeTeleportation * signeAleatoire);
-                    int offsetY = (int) (Math.random() * rangeTeleportation * signeAleatoire);
+                    int offsetX = (int) (Math.random() * porteeTeleportation * signeAleatoire);
+                    int offsetY = (int) (Math.random() * porteeTeleportation * signeAleatoire);
                     this.setCoordX(this.getCoordX() + offsetX);
                     this.setCoordY(this.getCoordY() + offsetY);
                     tempsTeleportation = 0;
@@ -125,7 +125,7 @@ public class Obstacle extends Element{
      * Fonction qui definit de facon aleatoire un type d'obstacle
      * @return un type d'obstacle
      */
-    private obstacleType getRandomType(){
+    private obstacleType getTypeAleatoire(){
         int typeInt = (int)(Math.random() * 3);
         switch (typeInt){
             case 0:
@@ -144,6 +144,6 @@ public class Obstacle extends Element{
      */
     private void setImage(){
         int num = (int)(Math.random() * 26);
-        super.setImage(Resources.getImage(num));
+        super.setImage(Ressources.getImage(num));
     }
 }

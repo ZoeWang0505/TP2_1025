@@ -13,14 +13,14 @@ package FlappyGhost;
 import javafx.animation.AnimationTimer;
 
 public class Controleur {
-    private Vue vue; // la vue est le point d'entree de l'application JavaFX
+    private FlappyGhost vue; // la vue est le point d'entree de l'application JavaFX
     private Jeu jeu; // le modele de l'application est une instance de Jeu
 
     /**
      * Constructeur qui prends une vue en pararmetre
      * @param vue vue du jeu
      */
-    public Controleur(Vue vue) {
+    public Controleur(FlappyGhost vue) {
         this.vue = vue;
     }
 
@@ -28,7 +28,8 @@ public class Controleur {
      * Initialise le jeu
      */
     private void jeuInitialise(){
-        this.jeu = new Jeu(vue.getLrgFenetre(), vue.getHtrFenetre() - vue.getHtrBarreTache());
+        this.jeu = new Jeu(vue.getLrgFenetre(),
+                vue.getHtrFenetre() - vue.getHtrBarreTache());
         this.jeu.initialiser();
     }
 

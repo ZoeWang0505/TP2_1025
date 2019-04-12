@@ -69,7 +69,7 @@ public class Fantome extends Element{
      */
     public Fantome(int x, int y){
         super(x, y, 30,  Color.BLACK);
-        this.setImage(Resources.getGhost());
+        this.setImage(Ressources.getFantome());
     }
 
     /**

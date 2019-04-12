@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 import java.text.MessageFormat;
 
-public class Resources {
+public class Ressources {
     // repertoire d'images d'obstacles disponibles
     private static String m_Images[] = {
             "0.png", "1.png", "2.png", "3.png", "4.png", "5.png", "6.png",
@@ -31,7 +31,7 @@ public class Resources {
      * Getter pour l'image du fantome
      * @return l'image du fantome
      */
-    public static Image getGhost(){
+    public static Image getFantome(){
         return new Image("file:ghost.png");
     }
 
@@ -39,7 +39,7 @@ public class Resources {
      * Getter pour l'image de l'arriere-plan
      * @return l'image de l'arriere-plan
      */
-    public static Image getBg(){
+    public static Image getArrierePlan(){
         return new Image("file:bg.png");
     }
 }

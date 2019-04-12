@@ -25,7 +25,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.Iterator;
 
-public class Vue extends Application {
+public class FlappyGhost extends Application {
     private Controleur controleur;       // Contrôleur de l'application
     private int lrgFenetre = 640;        // largeur de la fenetre
     private int htrFenetre = 440;        // hauteur de la fenetre
@@ -73,7 +73,8 @@ public class Vue extends Application {
      * Fonction principale
      * @param args arguments entres en ligne de commande
      */
-    public static void main(String[] args) {Vue.launch(args);}
+    public static void main(String[] args) {
+        FlappyGhost.launch(args);}
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -97,7 +98,7 @@ public class Vue extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Flappy Ghost");
-        primaryStage.getIcons().add(Resources.getGhost());
+        primaryStage.getIcons().add(Ressources.getFantome());
         primaryStage.show();
 
         context = canvas.getGraphicsContext2D();
@@ -149,7 +150,7 @@ public class Vue extends Application {
      */
     public void miseAJour(Jeu jeu) {
         // mettre a jour l'arriere-plan
-        Background bg = jeu.getBackgroud();
+        ArrierePlan bg = jeu.getArrierePlan();
         context.clearRect(0, 0, lrgFenetre, htrFenetre - htrBarreTache);
         Image image = bg.getImage();
         context.drawImage(image, bg.getCoordX(),0, image.getWidth(), image.getHeight() );
